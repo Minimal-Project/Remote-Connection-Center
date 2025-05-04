@@ -14,7 +14,7 @@ namespace Server_Manager
     {
         private ServerConfig config;
 
-        public event Action<ServerConfig> OnConnect;
+        public event Action<ServerConfig>? OnConnect;
 
         public ServerCard(ServerConfig config)
         {

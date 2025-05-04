@@ -1,75 +1,91 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using System.Windows.Forms;
 using Renci.SshNet;
-
 
 namespace Server_Manager
 {
     public partial class Form1 : Form
     {
-        private List<ServerConfig> server = new List<ServerConfig>();
+        private List<ServerConfig> servers = new();
+
         public Form1()
         {
             InitializeComponent();
-            LoadServers();
+            InitDummyServers();
             PopulateServerCards();
         }
 
-        private void LoadServers()
+        private void InitDummyServers()
         {
-            server.Add(new ServerConfig
+            for (int i = 0; i < 14; i++)
             {
-                Name = "ReHoSchi",
-                Host = "192.168.31.181",
-                User = "root",
-                Port = 22,
-                Password = ""
-            });
-
-            server.Add(new ServerConfig
-            {
-                Name = "StatusWebsite",
-                Host = "192.168.31.116",
-                User = "root",
-                Port = 22,
-                Password = ""
-            });
-            server.Add(new ServerConfig
-            {
-                Name = "Error",
-                Host = "192.168.31.115",
-                User = "root",
-                Port = 22,
-                Password = ""
-            });
+                servers.Add(new ServerConfig
+                {
+                    Name = $"Server {i + 1}",
+                    Host = "0.0.0.0",
+                    Port = 22,
+                    User = "user",
+                    Password = ""
+                });
+            }
         }
+
         private void PopulateServerCards()
         {
             flowPanelServers.Controls.Clear();
-            foreach (var server in server)
+            foreach (var server in servers)
             {
                 var card = new ServerCard(server);
                 card.OnConnect += ConnectToServer;
                 flowPanelServers.Controls.Add(card);
             }
         }
+
         private void ConnectToServer(ServerConfig server)
         {
-            using var client = new SshClient(server.Host, server.Port, server.User, server.Password);
             try
             {
+                using var client = new SshClient(server.Host, server.Port, server.User, server.Password);
                 client.Connect();
-                MessageBox.Show($"Connected to {server.Name}", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Verbunden mit {server.Name}", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 client.Disconnect();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to connect to {server.Name}: {ex.Message}", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Verbindung fehlgeschlagen: {ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        private void btnLoadConfig_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists("servers.json"))
+            {
+                MessageBox.Show("Die Datei servers.json wurde nicht gefunden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                var json = File.ReadAllText("servers.json");
+                var loaded = JsonSerializer.Deserialize<List<ServerConfig>>(json);
+                if (loaded != null)
+                {
+                    servers = loaded;
+                    PopulateServerCards();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fehler beim Laden: {ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void flowPanelServers_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
-
-
