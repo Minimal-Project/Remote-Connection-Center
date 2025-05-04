@@ -28,12 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            flowPanelServers = new FlowLayoutPanel();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            SuspendLayout();
+            // 
+            // flowPanelServers
+            // 
+            flowPanelServers.BackColor = Color.White;
+            flowPanelServers.Dock = DockStyle.Fill;
+            flowPanelServers.Font = new Font("Segoe UI", 9F);
+            flowPanelServers.Location = new Point(0, 0);
+            flowPanelServers.Name = "flowPanelServers";
+            flowPanelServers.Size = new Size(1221, 756);
+            flowPanelServers.TabIndex = 0;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1221, 756);
+            Controls.Add(flowPanelServers);
+            Name = "Form1";
+            Text = "Form1";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private FlowLayoutPanel flowPanelServers;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
