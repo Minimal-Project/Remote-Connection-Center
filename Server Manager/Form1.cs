@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -27,8 +28,7 @@ namespace Server_Manager
                     Name = $"Server {i + 1}",
                     Host = "0.0.0.0",
                     Port = 22,
-                    User = "user",
-                    Password = ""
+                    User = "user"
                 });
             }
         }
@@ -46,16 +46,63 @@ namespace Server_Manager
 
         private void ConnectToServer(ServerConfig server)
         {
-            try
+            if (server.Mode.ToUpper() == "SSH")
             {
-                using var client = new SshClient(server.Host, server.Port, server.User, server.Password);
-                client.Connect();
-                MessageBox.Show($"Verbunden mit {server.Name}", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                client.Disconnect();
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        Arguments = $"/k ssh {server.User}@{server.Host} -p {server.Port}",
+                        UseShellExecute = true,
+                    });
+
+                    MessageBox.Show($"Verbunden mit {server.Name} über CMD (SSH)", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fehler beim Start der SSH-Verbindung: { ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
+            else if (server.Mode.ToUpper() == "RDP")
             {
-                MessageBox.Show($"Verbindung fehlgeschlagen: {ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "mstsc.exe",
+                        Arguments = $"/v:{server.Host}:{server.Port}",
+                        UseShellExecute = true,
+                    });
+                    MessageBox.Show($"Verbunden mit {server.Name} über RDP", "RDP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fehler beim Start der RDP-Verbindung: {ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Unbekannter Verbindungsmodus: {server.Mode}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+        private void btnEditConfig_Click(object sender, EventArgs e)
+        {
+            string configFilePath = "servers.json"; // Der Pfad zur Konfigurationsdatei
+
+            if (File.Exists(configFilePath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = configFilePath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                MessageBox.Show("Die Datei servers.json wurde nicht gefunden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -87,5 +134,6 @@ namespace Server_Manager
         {
 
         }
+
     }
 }

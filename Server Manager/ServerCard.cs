@@ -24,10 +24,6 @@ namespace Server_Manager
             lblInfo.Text = $"{config.User}@{config.Host}";
             btnConnect.Click += (s, e) => OnConnect?.Invoke(config);
         }
-        public ServerCard()
-        {
-            InitializeComponent();
-        }
 
         private void ServerCard_Load(object sender, EventArgs e)
         {

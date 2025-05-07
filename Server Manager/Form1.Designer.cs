@@ -31,6 +31,7 @@
             flowPanelServers = new FlowLayoutPanel();
             btnLoadConfig = new Button();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            btnEditConfig = new Button();
             SuspendLayout();
             // 
             // flowPanelServers
@@ -46,7 +47,7 @@
             // 
             // btnLoadConfig
             // 
-            btnLoadConfig.Location = new Point(1062, 12);
+            btnLoadConfig.Location = new Point(1063, 12);
             btnLoadConfig.Name = "btnLoadConfig";
             btnLoadConfig.Size = new Size(147, 23);
             btnLoadConfig.TabIndex = 0;
@@ -54,11 +55,22 @@
             btnLoadConfig.UseVisualStyleBackColor = true;
             btnLoadConfig.Click += btnLoadConfig_Click;
             // 
+            // btnEditConfig
+            // 
+            btnEditConfig.Location = new Point(910, 12);
+            btnEditConfig.Name = "btnEditConfig";
+            btnEditConfig.Size = new Size(147, 23);
+            btnEditConfig.TabIndex = 1;
+            btnEditConfig.Text = "Edit Config";
+            btnEditConfig.UseVisualStyleBackColor = true;
+            btnEditConfig.Click += btnEditConfig_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1221, 756);
+            Controls.Add(btnEditConfig);
             Controls.Add(btnLoadConfig);
             Controls.Add(flowPanelServers);
             Name = "Form1";
@@ -71,5 +83,6 @@
         private FlowLayoutPanel flowPanelServers;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Button btnLoadConfig;
+        private Button btnEditConfig;
     }
 }
