@@ -57,11 +57,11 @@ namespace Server_Manager
                         UseShellExecute = true,
                     });
 
-                    MessageBox.Show($"Verbunden mit {server.Name} über CMD (SSH)", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Connected with {server.Name} via CMD (SSH)", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Fehler beim Start der SSH-Verbindung: { ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error when starting the SSH connection: { ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else if (server.Mode.ToUpper() == "RDP")
@@ -74,23 +74,23 @@ namespace Server_Manager
                         Arguments = $"/v:{server.Host}:{server.Port}",
                         UseShellExecute = true,
                     });
-                    MessageBox.Show($"Verbunden mit {server.Name} über RDP", "RDP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Connected with {server.Name} via RDP", "RDP", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Fehler beim Start der RDP-Verbindung: {ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error when starting the RDP connection: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show($"Unbekannter Verbindungsmodus: {server.Mode}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Unknown connection mode: {server.Mode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
 
         private void btnEditConfig_Click(object sender, EventArgs e)
         {
-            string configFilePath = "servers.json"; // Der Pfad zur Konfigurationsdatei
+            string configFilePath = "servers.json"; 
 
             if (File.Exists(configFilePath))
             {
@@ -102,7 +102,7 @@ namespace Server_Manager
             }
             else
             {
-                MessageBox.Show("Die Datei servers.json wurde nicht gefunden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("servers.json not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -110,7 +110,7 @@ namespace Server_Manager
         {
             if (!File.Exists("servers.json"))
             {
-                MessageBox.Show("Die Datei servers.json wurde nicht gefunden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("servers.json not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -126,7 +126,7 @@ namespace Server_Manager
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Fehler beim Laden: {ex.Message}", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Loading error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
