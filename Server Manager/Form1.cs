@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
-using Renci.SshNet;
 
 namespace Server_Manager
 {
@@ -15,8 +14,15 @@ namespace Server_Manager
         public Form1()
         {
             InitializeComponent();
+            PostInit();
             InitDummyServers();
             PopulateServerCards();
+        }
+
+        public async Task PostInit()
+        {
+            await Task.Delay(250);
+            btnLoadConfig_Click(null, null);
         }
 
         private void InitDummyServers()
@@ -61,7 +67,7 @@ namespace Server_Manager
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error when starting the SSH connection: { ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error when starting the SSH connection: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else if (server.Mode.ToUpper() == "RDP")
@@ -90,7 +96,7 @@ namespace Server_Manager
 
         private void btnEditConfig_Click(object sender, EventArgs e)
         {
-            string configFilePath = "servers.json"; 
+            string configFilePath = "servers.json";
 
             if (File.Exists(configFilePath))
             {
@@ -135,5 +141,64 @@ namespace Server_Manager
 
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InputBackupConfig(object sender, EventArgs e)
+        {
+            try
+            {
+                string sourceFile = "servers.json";
+                string backupFile = $"servers.bak";
+                if (!File.Exists(sourceFile))
+                {
+                    MessageBox.Show($"Config was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                File.Copy(sourceFile, backupFile, overwrite: true);
+                MessageBox.Show($"Config was backed up as:\n{backupFile}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error when backing up the config: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadBackup(object sender, EventArgs e)
+        {
+            using OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Select Backup File";
+            openFileDialog.Filter = "BAK Files (*.bak)|*.bak|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Application.StartupPath;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.Copy(openFileDialog.FileName, "servers.json", overwrite: true);
+
+                    var json = File.ReadAllText("servers.json");
+                    var loaded = JsonSerializer.Deserialize<List<ServerConfig>>(json);
+
+                    if (loaded != null)
+                    {
+                        servers = loaded;
+                        PopulateServerCards();
+                        MessageBox.Show($"Config was loaded from:\n{openFileDialog.FileName}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error when loading the backup: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
