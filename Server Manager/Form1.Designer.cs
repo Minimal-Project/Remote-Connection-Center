@@ -73,7 +73,7 @@
             panel1.Controls.Add(btnLoadConfig);
             panel1.Location = new Point(925, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(301, 65);
+            panel1.Size = new Size(301, 68);
             panel1.TabIndex = 2;
             // 
             // btnLoadBackup
