@@ -88,7 +88,7 @@ Make sure to adjust the `Host`, `Port`, `User`, and `Mode` fields to match your 
 
 3. **Backup and Restore:**  
    - To back up your current configuration, click the **Backup Config** button.
-   - To restore a previous backup, click the **Restore Backup** button and select a `.bak` file.
+   - To restore a previous backup, click the **Restore Backup** button and select your `.bak` file.
 
 ## Contributing
 
