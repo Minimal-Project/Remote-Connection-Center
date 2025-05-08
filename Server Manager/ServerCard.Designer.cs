@@ -46,6 +46,7 @@
             Controls.Add(btnConnect);
             Name = "ServerCard";
             Size = new Size(298, 98);
+            Load += ServerCard_Load_1;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -25,7 +25,7 @@ namespace Server_Manager
             {
                 "SSH" => $"{config.Host}@{config.Port}",
                 "RDP" => $"{config.Host}:{config.Port}",
-                "WEB" => 
+                "WEB" =>
                     !string.IsNullOrWhiteSpace(config.Url)
                         ? $"{config.Url}:{config.Port}"
                         : $"{config.Host}:{config.Port}",
@@ -38,6 +38,11 @@ namespace Server_Manager
         }
 
         private void ServerCard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ServerCard_Load_1(object sender, EventArgs e)
         {
 
         }

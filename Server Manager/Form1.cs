@@ -17,6 +17,7 @@ namespace Server_Manager
             PostInit();
             InitDummyServers();
             PopulateServerCards();
+
             flowPanelServers.AutoScroll = true;
             flowPanelServers.HorizontalScroll.Enabled = false;
             flowPanelServers.HorizontalScroll.Visible = false;
@@ -94,7 +95,6 @@ namespace Server_Manager
             {
                 try
                 {
-                    // Verwende URL, wenn vorhanden, sonst Host
                     string address = !string.IsNullOrWhiteSpace(server.Url) ? server.Url : server.Host;
 
                     if (string.IsNullOrWhiteSpace(address))
