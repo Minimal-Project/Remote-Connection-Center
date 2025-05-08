@@ -36,11 +36,14 @@
             // flowPanelServers
             // 
             flowPanelServers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowPanelServers.AutoScroll = true;
+            flowPanelServers.AutoScrollMargin = new Size(0, 10);
+            flowPanelServers.AutoScrollMinSize = new Size(0, 5);
             flowPanelServers.BackColor = Color.White;
             flowPanelServers.Font = new Font("Segoe UI", 9F);
             flowPanelServers.Location = new Point(10, 94);
             flowPanelServers.Name = "flowPanelServers";
-            flowPanelServers.Size = new Size(1216, 652);
+            flowPanelServers.Size = new Size(1233, 652);
             flowPanelServers.TabIndex = 1;
             flowPanelServers.Paint += flowPanelServers_Paint;
             // 
@@ -71,7 +74,7 @@
             panel1.Controls.Add(btnBackupConfig);
             panel1.Controls.Add(btnEditConfig);
             panel1.Controls.Add(btnLoadConfig);
-            panel1.Location = new Point(925, 6);
+            panel1.Location = new Point(942, 6);
             panel1.Name = "panel1";
             panel1.Size = new Size(301, 68);
             panel1.TabIndex = 2;
@@ -110,7 +113,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.Logo;
-            pictureBox2.Location = new Point(224, 6);
+            pictureBox2.Location = new Point(227, 6);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(84, 82);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -121,7 +124,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1237, 757);
+            ClientSize = new Size(1254, 757);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);

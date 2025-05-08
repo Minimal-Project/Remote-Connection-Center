@@ -17,6 +17,12 @@ namespace Server_Manager
             PostInit();
             InitDummyServers();
             PopulateServerCards();
+            flowPanelServers.AutoScroll = true;
+            flowPanelServers.HorizontalScroll.Enabled = false;
+            flowPanelServers.HorizontalScroll.Visible = false;
+            flowPanelServers.VerticalScroll.Visible = true;
+            flowPanelServers.VerticalScroll.Enabled = true;
+            flowPanelServers.AutoScrollMinSize = new Size(0, flowPanelServers.Height + 1);
         }
 
         public async Task PostInit()
@@ -62,8 +68,6 @@ namespace Server_Manager
                         Arguments = $"/k ssh {server.User}@{server.Host} -p {server.Port}",
                         UseShellExecute = true,
                     });
-
-                    MessageBox.Show($"Connected with {server.Name} via CMD (SSH)", "SSH", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -80,11 +84,37 @@ namespace Server_Manager
                         Arguments = $"/v:{server.Host}:{server.Port}",
                         UseShellExecute = true,
                     });
-                    MessageBox.Show($"Connected with {server.Name} via RDP", "RDP", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error when starting the RDP connection: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (server.Mode?.ToUpper() == "WEB")
+            {
+                try
+                {
+                    // Verwende URL, wenn vorhanden, sonst Host
+                    string address = !string.IsNullOrWhiteSpace(server.Url) ? server.Url : server.Host;
+
+                    if (string.IsNullOrWhiteSpace(address))
+                    {
+                        MessageBox.Show("No valid URL or Host specified for WEB mode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    string scheme = server.Port == 443 ? "https" : "http";
+
+                    string url = $"{scheme}://{address}:{server.Port}";
+
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error when starting the web connection: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -92,6 +122,7 @@ namespace Server_Manager
                 MessageBox.Show($"Unknown connection mode: {server.Mode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
 
         private void btnEditConfig_Click(object sender, EventArgs e)

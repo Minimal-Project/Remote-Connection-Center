@@ -13,5 +13,6 @@ namespace Server_Manager
         public int Port { get; set; } = 22;
         public string User { get; set; } = "";
         public string Mode { get; set; } = "SSH";
+        public string? Url { get; set; } = "";
     }
 }

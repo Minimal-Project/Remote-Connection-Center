@@ -21,7 +21,19 @@ namespace Server_Manager
             InitializeComponent();
             this.config = config;
             lblName.Text = config.Name;
-            lblInfo.Text = $"{config.User}@{config.Host}";
+            string infoText = config.Mode.ToUpper() switch
+            {
+                "SSH" => $"{config.Host}@{config.Port}",
+                "RDP" => $"{config.Host}:{config.Port}",
+                "WEB" => 
+                    !string.IsNullOrWhiteSpace(config.Url)
+                        ? $"{config.Url}:{config.Port}"
+                        : $"{config.Host}:{config.Port}",
+
+                _ => config.Host
+            };
+            lblInfo.Text = infoText;
+
             btnConnect.Click += (s, e) => OnConnect?.Invoke(config);
         }
 
