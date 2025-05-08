@@ -99,7 +99,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.ReHoGaBanner3_0_Transparent;
-            pictureBox1.Location = new Point(14, 6);
+            pictureBox1.Location = new Point(4, 6);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(217, 82);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -110,7 +110,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.Logo;
-            pictureBox2.Location = new Point(237, 6);
+            pictureBox2.Location = new Point(224, 6);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(84, 82);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
