@@ -14,5 +14,6 @@ namespace Server_Manager
         public string User { get; set; } = "";
         public string Mode { get; set; } = "SSH";
         public string? Url { get; set; } = "";
+        public bool ?IsOnline { get; set; } = null;
     }
 }

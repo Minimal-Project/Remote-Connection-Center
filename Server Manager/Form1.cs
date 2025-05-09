@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -51,10 +52,24 @@ namespace Server_Manager
             flowPanelServers.Controls.Clear();
             foreach (var server in servers)
             {
+                server.IsOnline = null;
                 var card = new ServerCard(server);
                 card.OnConnect += ConnectToServer;
                 flowPanelServers.Controls.Add(card);
+
+                _ = UpdateServerStatusAsync(server, card);
             }
+        }
+
+        private async Task UpdateServerStatusAsync(ServerConfig server, ServerCard card)
+        {
+            bool isOnline = await CheckPingAsync(server);
+            server.IsOnline = isOnline;
+
+            Invoke(() =>
+            {
+                card.UpdateStatus(isOnline);
+            });
         }
 
         private void ConnectToServer(ServerConfig server)
@@ -229,6 +244,57 @@ namespace Server_Manager
                 {
                     MessageBox.Show($"Error when loading the backup: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private async Task<bool> CheckPingAsync(ServerConfig config)
+        {
+            try
+            {
+                string target = config.Mode.ToUpper() switch
+                {
+                    "WEB" => !string.IsNullOrWhiteSpace(config.Url) ? config.Url : config.Host,
+                    _ => config.Host
+                };
+                target = target.Replace("http://", "").Replace("https://", "").Replace("www.", "");
+                if (target.Contains("/"))
+                    target = target.Split('/')[0];
+
+                using Ping ping = new Ping();
+                PingReply reply = await ping.SendPingAsync(target, 1000);
+
+                return reply.Status == IPStatus.Success;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            FilterServerCards(txtSearch.Text);
+        }
+
+        private void FilterServerCards(string searchTerm)
+        {
+            searchTerm = searchTerm.Trim().ToLower();
+            flowPanelServers.Controls.Clear();
+
+            var filteredServers = servers.Where(s =>
+                string.IsNullOrWhiteSpace(searchTerm) ||
+                s.Name.ToLower().Contains(searchTerm) ||
+                s.Host.ToLower().Contains(searchTerm) ||
+                s.User.ToLower().Contains(searchTerm) ||
+                (!string.IsNullOrWhiteSpace(s.Url) && s.Url.ToLower().Contains(searchTerm))).ToList();
+            
+
+            foreach (var server in filteredServers)
+            {
+                var card = new ServerCard(server);
+                card.OnConnect += ConnectToServer;
+                flowPanelServers.Controls.Add(card);
+                _ = UpdateServerStatusAsync(server, card);
             }
         }
     }

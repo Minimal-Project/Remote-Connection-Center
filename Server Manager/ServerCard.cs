@@ -37,6 +37,12 @@ namespace Server_Manager
             btnConnect.Click += (s, e) => OnConnect?.Invoke(config);
         }
 
+        public void UpdateStatus(bool isOnline)
+        {
+            lblStatus.Text = isOnline ? "Online" : "Offline";
+            lblStatus.ForeColor = isOnline ? Color.Green : Color.Red;
+        }
+
         private void ServerCard_Load(object sender, EventArgs e)
         {
 

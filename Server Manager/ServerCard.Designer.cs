@@ -11,6 +11,7 @@
             lblName = new Label();
             lblInfo = new Label();
             btnConnect = new Button();
+            lblStatus = new Label();
             SuspendLayout();
             // 
             // lblName
@@ -38,9 +39,20 @@
             btnConnect.TabIndex = 2;
             btnConnect.Text = "Connect";
             // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.ForeColor = Color.Red;
+            lblStatus.Location = new Point(238, 10);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(43, 15);
+            lblStatus.TabIndex = 3;
+            lblStatus.Text = "Offline";
+            // 
             // ServerCard
             // 
             BorderStyle = BorderStyle.FixedSingle;
+            Controls.Add(lblStatus);
             Controls.Add(lblName);
             Controls.Add(lblInfo);
             Controls.Add(btnConnect);
@@ -50,5 +62,6 @@
             ResumeLayout(false);
             PerformLayout();
         }
+        private Label lblStatus;
     }
 }

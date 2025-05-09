@@ -83,6 +83,26 @@ namespace Server_Manager.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap rcc_mP4O8xLXoZTXz80j__1_ {
+            get {
+                object obj = ResourceManager.GetObject("rcc-mP4O8xLXoZTXz80j (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rcc_mP4O8xLXoZTXz80j__1_1 {
+            get {
+                object obj = ResourceManager.GetObject("rcc-mP4O8xLXoZTXz80j (1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReHoGaBanner3_0_Transparent {
             get {
                 object obj = ResourceManager.GetObject("ReHoGaBanner3.0_Transparent", resourceCulture);

@@ -24,6 +24,7 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             btnEditConfig = new Button();
             panel1 = new Panel();
+            txtSearch = new TextBox();
             btnLoadBackup = new Button();
             btnBackupConfig = new Button();
             pictureBox1 = new PictureBox();
@@ -41,15 +42,15 @@
             flowPanelServers.AutoScrollMinSize = new Size(0, 5);
             flowPanelServers.BackColor = Color.White;
             flowPanelServers.Font = new Font("Segoe UI", 9F);
-            flowPanelServers.Location = new Point(10, 94);
+            flowPanelServers.Location = new Point(10, 108);
             flowPanelServers.Name = "flowPanelServers";
-            flowPanelServers.Size = new Size(1233, 652);
+            flowPanelServers.Size = new Size(1233, 638);
             flowPanelServers.TabIndex = 1;
             flowPanelServers.Paint += flowPanelServers_Paint;
             // 
             // btnLoadConfig
             // 
-            btnLoadConfig.Location = new Point(154, 5);
+            btnLoadConfig.Location = new Point(151, 32);
             btnLoadConfig.Name = "btnLoadConfig";
             btnLoadConfig.Size = new Size(147, 23);
             btnLoadConfig.TabIndex = 0;
@@ -59,7 +60,7 @@
             // 
             // btnEditConfig
             // 
-            btnEditConfig.Location = new Point(3, 5);
+            btnEditConfig.Location = new Point(0, 32);
             btnEditConfig.Name = "btnEditConfig";
             btnEditConfig.Size = new Size(147, 23);
             btnEditConfig.TabIndex = 1;
@@ -70,18 +71,27 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel1.Controls.Add(txtSearch);
             panel1.Controls.Add(btnLoadBackup);
             panel1.Controls.Add(btnBackupConfig);
             panel1.Controls.Add(btnEditConfig);
             panel1.Controls.Add(btnLoadConfig);
             panel1.Location = new Point(942, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(301, 68);
+            panel1.Size = new Size(301, 96);
             panel1.TabIndex = 2;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(3, 3);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(295, 23);
+            txtSearch.TabIndex = 5;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnLoadBackup
             // 
-            btnLoadBackup.Location = new Point(3, 34);
+            btnLoadBackup.Location = new Point(0, 61);
             btnLoadBackup.Name = "btnLoadBackup";
             btnLoadBackup.Size = new Size(147, 23);
             btnLoadBackup.TabIndex = 3;
@@ -91,7 +101,7 @@
             // 
             // btnBackupConfig
             // 
-            btnBackupConfig.Location = new Point(154, 34);
+            btnBackupConfig.Location = new Point(151, 61);
             btnBackupConfig.Name = "btnBackupConfig";
             btnBackupConfig.Size = new Size(147, 23);
             btnBackupConfig.TabIndex = 2;
@@ -104,7 +114,7 @@
             pictureBox1.Image = Properties.Resources.ReHoGaBanner3_0_Transparent;
             pictureBox1.Location = new Point(4, 6);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(217, 82);
+            pictureBox1.Size = new Size(251, 96);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -112,10 +122,10 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = Properties.Resources.Logo;
-            pictureBox2.Location = new Point(227, 6);
+            pictureBox2.Image = Properties.Resources.rcc_mP4O8xLXoZTXz80j__1_;
+            pictureBox2.Location = new Point(261, 6);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(84, 82);
+            pictureBox2.Size = new Size(102, 96);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
@@ -129,11 +139,12 @@
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
             Controls.Add(flowPanelServers);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new Size(665, 500);
             Name = "Form1";
             Text = "RCC - Remote Connection Center";
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
@@ -150,5 +161,6 @@
         private Button btnBackupConfig;
         private Button btnLoadBackup;
         private PictureBox pictureBox2;
+        private TextBox txtSearch;
     }
 }
