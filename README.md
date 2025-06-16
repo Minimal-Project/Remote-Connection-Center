@@ -1,6 +1,11 @@
 
 # RCC – Remote Connection Center
 
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)](#)
+[![Built with](https://img.shields.io/badge/Built_with-C%23-239120?logo=c-sharp)](#)
+[![Issues](https://img.shields.io/github/issues/Minimal-Project/Remote-Connection-Center)](https://github.com/Minimal-Project/Remote-Connection-Center/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/Minimal-Project/Remote-Connection-Center)](https://github.com/Minimal-Project/Remote-Connection-Center/commits)
+
 **RCC** (Remote Connection Center) is a lightweight Windows tool that simplifies connecting to multiple servers through various protocols, including **SSH**, **RDP**, and **WEB**.
 
 It provides a user-friendly interface for managing server connections and offers quick access to different server environments, all from a single application.
