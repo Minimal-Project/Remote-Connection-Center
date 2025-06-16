@@ -29,6 +29,8 @@
             btnBackupConfig = new Button();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
+            label1 = new Label();
+            linkLabel1 = new LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -42,17 +44,19 @@
             flowPanelServers.AutoScrollMinSize = new Size(0, 5);
             flowPanelServers.BackColor = Color.White;
             flowPanelServers.Font = new Font("Segoe UI", 9F);
-            flowPanelServers.Location = new Point(10, 108);
+            flowPanelServers.Location = new Point(14, 171);
+            flowPanelServers.Margin = new Padding(4, 5, 4, 5);
             flowPanelServers.Name = "flowPanelServers";
-            flowPanelServers.Size = new Size(1233, 638);
+            flowPanelServers.Size = new Size(1683, 842);
             flowPanelServers.TabIndex = 1;
             flowPanelServers.Paint += flowPanelServers_Paint;
             // 
             // btnLoadConfig
             // 
-            btnLoadConfig.Location = new Point(151, 32);
+            btnLoadConfig.Location = new Point(216, 53);
+            btnLoadConfig.Margin = new Padding(4, 5, 4, 5);
             btnLoadConfig.Name = "btnLoadConfig";
-            btnLoadConfig.Size = new Size(147, 23);
+            btnLoadConfig.Size = new Size(210, 38);
             btnLoadConfig.TabIndex = 0;
             btnLoadConfig.Text = "Load Config";
             btnLoadConfig.UseVisualStyleBackColor = true;
@@ -60,9 +64,10 @@
             // 
             // btnEditConfig
             // 
-            btnEditConfig.Location = new Point(0, 32);
+            btnEditConfig.Location = new Point(0, 53);
+            btnEditConfig.Margin = new Padding(4, 5, 4, 5);
             btnEditConfig.Name = "btnEditConfig";
-            btnEditConfig.Size = new Size(147, 23);
+            btnEditConfig.Size = new Size(210, 38);
             btnEditConfig.TabIndex = 1;
             btnEditConfig.Text = "Edit Config";
             btnEditConfig.UseVisualStyleBackColor = true;
@@ -76,24 +81,27 @@
             panel1.Controls.Add(btnBackupConfig);
             panel1.Controls.Add(btnEditConfig);
             panel1.Controls.Add(btnLoadConfig);
-            panel1.Location = new Point(942, 6);
+            panel1.Location = new Point(1268, 10);
+            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(301, 96);
+            panel1.Size = new Size(430, 160);
             panel1.TabIndex = 2;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(3, 3);
+            txtSearch.Location = new Point(4, 5);
+            txtSearch.Margin = new Padding(4, 5, 4, 5);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(295, 23);
+            txtSearch.Size = new Size(420, 31);
             txtSearch.TabIndex = 5;
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnLoadBackup
             // 
-            btnLoadBackup.Location = new Point(0, 61);
+            btnLoadBackup.Location = new Point(0, 102);
+            btnLoadBackup.Margin = new Padding(4, 5, 4, 5);
             btnLoadBackup.Name = "btnLoadBackup";
-            btnLoadBackup.Size = new Size(147, 23);
+            btnLoadBackup.Size = new Size(210, 38);
             btnLoadBackup.TabIndex = 3;
             btnLoadBackup.Text = "Load Backup";
             btnLoadBackup.UseVisualStyleBackColor = true;
@@ -101,9 +109,10 @@
             // 
             // btnBackupConfig
             // 
-            btnBackupConfig.Location = new Point(151, 61);
+            btnBackupConfig.Location = new Point(216, 102);
+            btnBackupConfig.Margin = new Padding(4, 5, 4, 5);
             btnBackupConfig.Name = "btnBackupConfig";
-            btnBackupConfig.Size = new Size(147, 23);
+            btnBackupConfig.Size = new Size(210, 38);
             btnBackupConfig.TabIndex = 2;
             btnBackupConfig.Text = "Backup Config";
             btnBackupConfig.UseVisualStyleBackColor = true;
@@ -112,9 +121,10 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.ReHoGaBanner3_0_Transparent;
-            pictureBox1.Location = new Point(4, 6);
+            pictureBox1.Location = new Point(6, 10);
+            pictureBox1.Margin = new Padding(4, 5, 4, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(251, 96);
+            pictureBox1.Size = new Size(359, 160);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
@@ -123,31 +133,58 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.rcc_mP4O8xLXoZTXz80j__1_;
-            pictureBox2.Location = new Point(261, 6);
+            pictureBox2.Location = new Point(373, 10);
+            pictureBox2.Margin = new Padding(4, 5, 4, 5);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(102, 96);
+            pictureBox2.Size = new Size(146, 160);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
             // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label1.AutoSize = true;
+            label1.Location = new Point(14, 1018);
+            label1.Name = "label1";
+            label1.Size = new Size(113, 25);
+            label1.TabIndex = 6;
+            label1.Text = "Version 1.2.0";
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new Point(133, 1018);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(260, 25);
+            linkLabel1.TabIndex = 7;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "https://rehoga-interactive.com/";
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1254, 757);
+            ClientSize = new Size(1713, 1044);
+            Controls.Add(linkLabel1);
+            Controls.Add(label1);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
             Controls.Add(flowPanelServers);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(665, 500);
+            Margin = new Padding(4, 5, 4, 5);
+            MinimumSize = new Size(1080, 800);
             Name = "Form1";
             Text = "RCC - Remote Connection Center";
+            Load += Form1_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -162,5 +199,7 @@
         private Button btnLoadBackup;
         private PictureBox pictureBox2;
         private TextBox txtSearch;
+        private Label label1;
+        private LinkLabel linkLabel1;
     }
 }

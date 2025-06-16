@@ -13,28 +13,31 @@ namespace Server_Manager
     public partial class ServerCard : UserControl
     {
         private ServerConfig config;
+        private System.Windows.Forms.Timer statusTimer;
 
+        public event Action<ServerConfig, ServerCard>? OnStatusCheckRequested;
         public event Action<ServerConfig>? OnConnect;
 
         public ServerCard(ServerConfig config)
         {
             InitializeComponent();
             this.config = config;
+
             lblName.Text = config.Name;
-            string infoText = config.Mode.ToUpper() switch
+            lblInfo.Text = config.Mode.ToUpper() switch
             {
                 "SSH" => $"{config.Host}@{config.Port}",
                 "RDP" => $"{config.Host}:{config.Port}",
-                "WEB" =>
-                    !string.IsNullOrWhiteSpace(config.Url)
-                        ? $"{config.Url}:{config.Port}"
-                        : $"{config.Host}:{config.Port}",
-
+                "WEB" => !string.IsNullOrWhiteSpace(config.Url) ? $"{config.Url}:{config.Port}" : $"{config.Host}:{config.Port}",
                 _ => config.Host
             };
-            lblInfo.Text = infoText;
 
             btnConnect.Click += (s, e) => OnConnect?.Invoke(config);
+
+            statusTimer = new System.Windows.Forms.Timer();
+            statusTimer.Interval = 1000;
+            statusTimer.Tick += (s, e) => OnStatusCheckRequested?.Invoke(config, this);
+            statusTimer.Start();
         }
 
         public void UpdateStatus(bool isOnline)
@@ -49,6 +52,11 @@ namespace Server_Manager
         }
 
         private void ServerCard_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
         {
 
         }

@@ -55,6 +55,11 @@ namespace Server_Manager
                 server.IsOnline = null;
                 var card = new ServerCard(server);
                 card.OnConnect += ConnectToServer;
+                card.OnStatusCheckRequested += async (cfg, c) =>
+                {
+                    bool online = await CheckPingAsync(cfg);
+                    Invoke(() => c.UpdateStatus(online));
+                };
                 flowPanelServers.Controls.Add(card);
 
                 _ = UpdateServerStatusAsync(server, card);
@@ -287,7 +292,7 @@ namespace Server_Manager
                 s.Host.ToLower().Contains(searchTerm) ||
                 s.User.ToLower().Contains(searchTerm) ||
                 (!string.IsNullOrWhiteSpace(s.Url) && s.Url.ToLower().Contains(searchTerm))).ToList();
-            
+
 
             foreach (var server in filteredServers)
             {
@@ -296,6 +301,11 @@ namespace Server_Manager
                 flowPanelServers.Controls.Add(card);
                 _ = UpdateServerStatusAsync(server, card);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
