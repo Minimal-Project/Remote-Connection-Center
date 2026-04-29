@@ -24,6 +24,7 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             btnEditConfig = new Button();
             panel1 = new Panel();
+            chkDark = new CheckBox();
             txtSearch = new TextBox();
             btnLoadBackup = new Button();
             btnBackupConfig = new Button();
@@ -53,7 +54,7 @@
             // 
             // btnLoadConfig
             // 
-            btnLoadConfig.Location = new Point(216, 53);
+            btnLoadConfig.Location = new Point(218, 46);
             btnLoadConfig.Margin = new Padding(4, 5, 4, 5);
             btnLoadConfig.Name = "btnLoadConfig";
             btnLoadConfig.Size = new Size(210, 38);
@@ -64,7 +65,7 @@
             // 
             // btnEditConfig
             // 
-            btnEditConfig.Location = new Point(0, 53);
+            btnEditConfig.Location = new Point(0, 46);
             btnEditConfig.Margin = new Padding(4, 5, 4, 5);
             btnEditConfig.Name = "btnEditConfig";
             btnEditConfig.Size = new Size(210, 38);
@@ -76,6 +77,7 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel1.Controls.Add(chkDark);
             panel1.Controls.Add(txtSearch);
             panel1.Controls.Add(btnLoadBackup);
             panel1.Controls.Add(btnBackupConfig);
@@ -86,6 +88,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(430, 160);
             panel1.TabIndex = 2;
+            // 
+            // chkDark
+            // 
+            chkDark.AutoSize = true;
+            chkDark.Location = new Point(0, 131);
+            chkDark.Name = "chkDark";
+            chkDark.Size = new Size(122, 29);
+            chkDark.TabIndex = 6;
+            chkDark.Text = "DarkMode";
+            chkDark.UseVisualStyleBackColor = true;
+            chkDark.CheckedChanged += chkDark_CheckedChanged;
             // 
             // txtSearch
             // 
@@ -98,7 +111,7 @@
             // 
             // btnLoadBackup
             // 
-            btnLoadBackup.Location = new Point(0, 102);
+            btnLoadBackup.Location = new Point(0, 94);
             btnLoadBackup.Margin = new Padding(4, 5, 4, 5);
             btnLoadBackup.Name = "btnLoadBackup";
             btnLoadBackup.Size = new Size(210, 38);
@@ -109,7 +122,7 @@
             // 
             // btnBackupConfig
             // 
-            btnBackupConfig.Location = new Point(216, 102);
+            btnBackupConfig.Location = new Point(218, 94);
             btnBackupConfig.Margin = new Padding(4, 5, 4, 5);
             btnBackupConfig.Name = "btnBackupConfig";
             btnBackupConfig.Size = new Size(210, 38);
@@ -120,7 +133,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.ReHoGaBanner3_0_Transparent;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(6, 10);
             pictureBox1.Margin = new Padding(4, 5, 4, 5);
             pictureBox1.Name = "pictureBox1";
@@ -149,7 +162,7 @@
             label1.Name = "label1";
             label1.Size = new Size(113, 25);
             label1.TabIndex = 6;
-            label1.Text = "Version 1.2.0";
+            label1.Text = "Version 1.3.0";
             // 
             // linkLabel1
             // 
@@ -201,5 +214,6 @@
         private TextBox txtSearch;
         private Label label1;
         private LinkLabel linkLabel1;
+        private CheckBox chkDark;
     }
 }

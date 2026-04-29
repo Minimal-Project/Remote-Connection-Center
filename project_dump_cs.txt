@@ -1,0 +1,1699 @@
+﻿
+===== PROJECT STRUCTURE =====
+Auflistung der Ordnerpfade
+Volumeseriennummer : B65C-9098
+C:\USERS\CEDRIC\SOURCE\REPOS\REMOTE-CONNECTION-CENTER
+ª   .gitattributes
+ª   .gitignore
+ª   project_dump_cs.txt
+ª   README.md
+ª   Server Manager.sln
+ª   
++---Server Manager
+    ª   Form1.cs
+    ª   Form1.Designer.cs
+    ª   Form1.resx
+    ª   Program.cs
+    ª   Remote Connection Center.csproj
+    ª   Remote Connection Center.csproj.user
+    ª   ServerCard.cs
+    ª   ServerCard.Designer.cs
+    ª   ServerCard.resx
+    ª   ServerConfig.cs
+    ª   servers.json
+    ª   
+    +---bin
+    ª   +---Release
+    +---obj
+    ª   ª   project.assets.json
+    ª   ª   project.nuget.cache
+    ª   ª   Remote Connection Center.csproj.nuget.dgspec.json
+    ª   ª   Remote Connection Center.csproj.nuget.g.props
+    ª   ª   Remote Connection Center.csproj.nuget.g.targets
+    ª   ª   
+    ª   +---Release
+    ª       +---net8.0-windows
+    ª           ª   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+    ª           ª   apphost.exe
+    ª           ª   PublishOutputs.da5cc668b3.txt
+    ª           ª   Remote Connection Center.AssemblyInfo.cs
+    ª           ª   Remote Connection Center.AssemblyInfoInputs.cache
+    ª           ª   Remote Connection Center.assets.cache
+    ª           ª   Remote Connection Center.csproj.CoreCompileInputs.cache
+    ª           ª   Remote Connection Center.csproj.FileListAbsolute.txt
+    ª           ª   Remote Connection Center.csproj.GenerateResource.cache
+    ª           ª   Remote Connection Center.designer.deps.json
+    ª           ª   Remote Connection Center.designer.runtimeconfig.json
+    ª           ª   Remote Connection Center.dll
+    ª           ª   Remote Connection Center.GeneratedMSBuildEditorConfig.editorconfig
+    ª           ª   Remote Connection Center.genruntimeconfig.cache
+    ª           ª   Remote Connection Center.GlobalUsings.g.cs
+    ª           ª   Remote Connection Center.pdb
+    ª           ª   Remote Connection Center.sourcelink.json
+    ª           ª   Server_Manager.Form1.resources
+    ª           ª   Server_Manager.Properties.Resources.resources
+    ª           ª   Server_Manager.ServerCard.resources
+    ª           ª   
+    ª           +---ref
+    ª           ª       Remote Connection Center.dll
+    ª           ª       
+    ª           +---refint
+    ª           ª       Remote Connection Center.dll
+    ª           ª       
+    ª           +---TempPE
+    ª                   Properties.Resources.Designer.cs.dll
+    ª                   
+    +---Properties
+    ª   ª   Resources.Designer.cs
+    ª   ª   Resources.resx
+    ª   ª   
+    ª   +---PublishProfiles
+    ª           FolderProfile.pubxml
+    ª           FolderProfile.pubxml.user
+    ª           
+    +---Resources
+            Logo.ico
+            Logo.png
+            rcc-mP4O8xLXoZTXz80j (1).png
+            rcc-mP4O8xLXoZTXz80j.avif
+            RCC.png
+            ReHoGaBanner3.0_Transparent.png
+            
+
+===== FILE CONTENTS =====
+
+----- FILE: README.md -----
+
+# RCC â€“ Remote Connection Center
+
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)](#)
+[![Built with](https://img.shields.io/badge/Built_with-C%23-239120?logo=c-sharp)](#)
+[![Issues](https://img.shields.io/github/issues/Minimal-Project/Remote-Connection-Center)](https://github.com/Minimal-Project/Remote-Connection-Center/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/Minimal-Project/Remote-Connection-Center)](https://github.com/Minimal-Project/Remote-Connection-Center/commits)
+
+**RCC** (Remote Connection Center) is a lightweight Windows tool that simplifies connecting to multiple servers through various protocols, including **SSH**, **RDP**, and **WEB**.
+
+It provides a user-friendly interface for managing server connections and offers quick access to different server environments, all from a single application.
+
+This project is built using C#, designed to make it easy for system administrators, developers, and technicians to manage server connections efficiently.
+
+## Features
+
+- **Multi-Protocol Support**  
+  Supports connections via **SSH**, **RDP** (Windows Remote Desktop), and **WEB** (for accessing web interfaces such as Proxmox, routers, admin panels etc.).
+
+- **Server Configuration via JSON**
+  The servers are loaded from the `servers.json` file, which makes it easier to change, save and restore server configurations.
+
+- **Visual Server Cards**  
+  Servers are displayed as interactive cards in a scrollable panel.  
+  Each card shows the serverâ€™s name, connection details, and a Connect button to initiate the connection.
+
+- **Backup & Restore Configurations**  
+  Easily back up the current configuration and restore it from a previous backup with just a few clicks.
+
+- **One-Click Connection**  
+  Simply click a server card to automatically open the appropriate connection tool (e.g., `ssh`, `mstsc.exe`, or a web browser).
+
+## Installation
+
+You can download the latest release of RCC from the [Releases page](https://github.com/Minimal-Project/Server-Manager/releases).
+
+1. Go to the **[Releases](https://github.com/Minimal-Project/Server-Manager/releases)** section.
+2. Download the latest `.zip` or `.exe` file.
+3. Extract the files (if you downloaded a `.zip`) and run the executable to launch RCC.
+
+Alternatively, you can clone the repository and build the project yourself:
+
+```bash
+git clone https://github.com/Minimal-Project/Remote-Connection-Center.git
+```
+
+Open it in Visual Studio (or another C# editor), build and run the project.
+
+## Configuration File (`servers.json`)
+
+The application loads server configurations from a `servers.json` file. Here is an example of how the file is structured:
+
+```json
+[
+    {
+        "Name": "Server 1",
+        "Host": "192.168.1.1",
+        "Port": 22,
+        "User": "user1",
+        "Mode": "SSH"
+    },
+    {
+        "Name": "Server 2",
+        "Host": "192.168.1.2",
+        "Port": 22,
+        "User": "user2",
+        "Mode": "SSH"
+    },
+    {
+        "Name": "Server 3",
+        "Host": "192.168.1.3",
+        "Port": 3389,
+        "Mode": "RDP"
+    },
+    {
+        "Name": "Server 4",
+        "Url": "example.com",
+        "Port": 443,
+        "Mode": "WEB"
+    }
+]
+```
+
+Make sure to adjust the `Host`, `Port`, `User`, and `Mode` fields to match your server configurations.
+
+## Usage
+
+1. **Load Configurations:**  
+   Upon startup, the application will load the server configurations from `servers.json`. You can edit this file to add or modify server entries.
+
+2. **Connect to a Server:**  
+   To connect to a server, simply click the **Connect** button on the respective server card. The application will open the appropriate tool (e.g., SSH terminal, RDP client, or web browser).
+
+3. **Backup and Restore:**  
+   - To back up your current configuration, click the **Backup Config** button.
+   - To restore a previous backup, click the **Restore Backup** button and select your `.bak` file.
+
+## Contributing
+
+Contributions to RCC are welcome!  
+If you have ideas for new features or improvements, feel free to open an issue via the [issue tracker](https://github.com/Minimal-Project/Remote-Connection-Center/issues).
+
+## Acknowledgments
+
+- Special thanks to [SichelBichel](https://github.com/SichelBichel) for his support on this project.
+
+
+----- FILE: Server Manager.sln -----
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remote Connection Center", "Server Manager\Remote Connection Center.csproj", "{008BADA2-73BB-43DD-8B38-920930518D68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{008BADA2-73BB-43DD-8B38-920930518D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008BADA2-73BB-43DD-8B38-920930518D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008BADA2-73BB-43DD-8B38-920930518D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008BADA2-73BB-43DD-8B38-920930518D68}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EDB1F93-25EE-4D33-82ED-B2B450B6A556}
+	EndGlobalSection
+EndGlobal
+
+
+----- FILE: Server Manager\Form1.cs -----
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Net.NetworkInformation;
+using System.Text.Json;
+using System.Windows.Forms;
+
+namespace Server_Manager
+{
+    public partial class Form1 : Form
+    {
+        private List<ServerConfig> servers = new();
+
+        public Form1()
+        {
+            InitializeComponent();
+            PostInit();
+            InitDummyServers();
+            PopulateServerCards();
+
+            flowPanelServers.AutoScroll = true;
+            flowPanelServers.HorizontalScroll.Enabled = false;
+            flowPanelServers.HorizontalScroll.Visible = false;
+            flowPanelServers.VerticalScroll.Visible = true;
+            flowPanelServers.VerticalScroll.Enabled = true;
+            flowPanelServers.AutoScrollMinSize = new Size(0, flowPanelServers.Height + 1);
+        }
+
+        public async Task PostInit()
+        {
+            await Task.Delay(250);
+            btnLoadConfig_Click(null, null);
+        }
+
+        private void InitDummyServers()
+        {
+            for (int i = 0; i < 14; i++)
+            {
+                servers.Add(new ServerConfig
+                {
+                    Name = $"Server {i + 1}",
+                    Host = "0.0.0.0",
+                    Port = 22,
+                    User = "user"
+                });
+            }
+        }
+
+        private void PopulateServerCards()
+        {
+            flowPanelServers.Controls.Clear();
+            foreach (var server in servers)
+            {
+                server.IsOnline = null;
+                var card = new ServerCard(server);
+                card.OnConnect += ConnectToServer;
+                card.OnStatusCheckRequested += async (cfg, c) =>
+                {
+                    bool online = await CheckPingAsync(cfg);
+                    Invoke(() => c.UpdateStatus(online));
+                };
+                flowPanelServers.Controls.Add(card);
+
+                _ = UpdateServerStatusAsync(server, card);
+            }
+        }
+
+        private async Task UpdateServerStatusAsync(ServerConfig server, ServerCard card)
+        {
+            bool isOnline = await CheckPingAsync(server);
+            server.IsOnline = isOnline;
+
+            Invoke(() =>
+            {
+                card.UpdateStatus(isOnline);
+            });
+        }
+
+        private void ConnectToServer(ServerConfig server)
+        {
+            if (server.Mode.ToUpper() == "SSH")
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        Arguments = $"/k ssh {server.User}@{server.Host} -p {server.Port}",
+                        UseShellExecute = true,
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error when starting the SSH connection: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (server.Mode.ToUpper() == "RDP")
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "mstsc.exe",
+                        Arguments = $"/v:{server.Host}:{server.Port}",
+                        UseShellExecute = true,
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error when starting the RDP connection: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (server.Mode?.ToUpper() == "WEB")
+            {
+                try
+                {
+                    string address = !string.IsNullOrWhiteSpace(server.Url) ? server.Url : server.Host;
+
+                    if (string.IsNullOrWhiteSpace(address))
+                    {
+                        MessageBox.Show("No valid URL or Host specified for WEB mode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    string scheme = server.Port == 443 ? "https" : "http";
+
+                    string url = $"{scheme}://{address}:{server.Port}";
+
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error when starting the web connection: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Unknown connection mode: {server.Mode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+
+        private void btnEditConfig_Click(object sender, EventArgs e)
+        {
+            string configFilePath = "servers.json";
+
+            if (File.Exists(configFilePath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = configFilePath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                MessageBox.Show("servers.json not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLoadConfig_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists("servers.json"))
+            {
+                MessageBox.Show("servers.json not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                var json = File.ReadAllText("servers.json");
+                var loaded = JsonSerializer.Deserialize<List<ServerConfig>>(json);
+                if (loaded != null)
+                {
+                    servers = loaded;
+                    PopulateServerCards();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Loading error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void flowPanelServers_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InputBackupConfig(object sender, EventArgs e)
+        {
+            try
+            {
+                string sourceFile = "servers.json";
+                string backupFile = $"servers.bak";
+                if (!File.Exists(sourceFile))
+                {
+                    MessageBox.Show($"Config was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                File.Copy(sourceFile, backupFile, overwrite: true);
+                MessageBox.Show($"Config was backed up as:\n{backupFile}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error when backing up the config: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadBackup(object sender, EventArgs e)
+        {
+            using OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Select Backup File";
+            openFileDialog.Filter = "BAK Files (*.bak)|*.bak|All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Application.StartupPath;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.Copy(openFileDialog.FileName, "servers.json", overwrite: true);
+
+                    var json = File.ReadAllText("servers.json");
+                    var loaded = JsonSerializer.Deserialize<List<ServerConfig>>(json);
+
+                    if (loaded != null)
+                    {
+                        servers = loaded;
+                        PopulateServerCards();
+                        MessageBox.Show($"Config was loaded from:\n{openFileDialog.FileName}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error when loading the backup: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private async Task<bool> CheckPingAsync(ServerConfig config)
+        {
+            try
+            {
+                string target = config.Mode.ToUpper() switch
+                {
+                    "WEB" => !string.IsNullOrWhiteSpace(config.Url) ? config.Url : config.Host,
+                    _ => config.Host
+                };
+                target = target.Replace("http://", "").Replace("https://", "").Replace("www.", "");
+                if (target.Contains("/"))
+                    target = target.Split('/')[0];
+
+                using Ping ping = new Ping();
+                PingReply reply = await ping.SendPingAsync(target, 1000);
+
+                return reply.Status == IPStatus.Success;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            FilterServerCards(txtSearch.Text);
+        }
+
+        private void FilterServerCards(string searchTerm)
+        {
+            searchTerm = searchTerm.Trim().ToLower();
+            flowPanelServers.Controls.Clear();
+
+            var filteredServers = servers.Where(s =>
+                string.IsNullOrWhiteSpace(searchTerm) ||
+                s.Name.ToLower().Contains(searchTerm) ||
+                s.Host.ToLower().Contains(searchTerm) ||
+                s.User.ToLower().Contains(searchTerm) ||
+                (!string.IsNullOrWhiteSpace(s.Url) && s.Url.ToLower().Contains(searchTerm))).ToList();
+
+
+            foreach (var server in filteredServers)
+            {
+                var card = new ServerCard(server);
+                card.OnConnect += ConnectToServer;
+                flowPanelServers.Controls.Add(card);
+                _ = UpdateServerStatusAsync(server, card);
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+
+----- FILE: Server Manager\Form1.Designer.cs -----
+namespace Server_Manager
+{
+    partial class Form1
+    {
+
+        private System.ComponentModel.IContainer components = null;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            flowPanelServers = new FlowLayoutPanel();
+            btnLoadConfig = new Button();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            btnEditConfig = new Button();
+            panel1 = new Panel();
+            txtSearch = new TextBox();
+            btnLoadBackup = new Button();
+            btnBackupConfig = new Button();
+            pictureBox1 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            label1 = new Label();
+            linkLabel1 = new LinkLabel();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            SuspendLayout();
+            // 
+            // flowPanelServers
+            // 
+            flowPanelServers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowPanelServers.AutoScroll = true;
+            flowPanelServers.AutoScrollMargin = new Size(0, 10);
+            flowPanelServers.AutoScrollMinSize = new Size(0, 5);
+            flowPanelServers.BackColor = Color.White;
+            flowPanelServers.Font = new Font("Segoe UI", 9F);
+            flowPanelServers.Location = new Point(14, 171);
+            flowPanelServers.Margin = new Padding(4, 5, 4, 5);
+            flowPanelServers.Name = "flowPanelServers";
+            flowPanelServers.Size = new Size(1683, 842);
+            flowPanelServers.TabIndex = 1;
+            flowPanelServers.Paint += flowPanelServers_Paint;
+            // 
+            // btnLoadConfig
+            // 
+            btnLoadConfig.Location = new Point(216, 53);
+            btnLoadConfig.Margin = new Padding(4, 5, 4, 5);
+            btnLoadConfig.Name = "btnLoadConfig";
+            btnLoadConfig.Size = new Size(210, 38);
+            btnLoadConfig.TabIndex = 0;
+            btnLoadConfig.Text = "Load Config";
+            btnLoadConfig.UseVisualStyleBackColor = true;
+            btnLoadConfig.Click += btnLoadConfig_Click;
+            // 
+            // btnEditConfig
+            // 
+            btnEditConfig.Location = new Point(0, 53);
+            btnEditConfig.Margin = new Padding(4, 5, 4, 5);
+            btnEditConfig.Name = "btnEditConfig";
+            btnEditConfig.Size = new Size(210, 38);
+            btnEditConfig.TabIndex = 1;
+            btnEditConfig.Text = "Edit Config";
+            btnEditConfig.UseVisualStyleBackColor = true;
+            btnEditConfig.Click += btnEditConfig_Click;
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel1.Controls.Add(txtSearch);
+            panel1.Controls.Add(btnLoadBackup);
+            panel1.Controls.Add(btnBackupConfig);
+            panel1.Controls.Add(btnEditConfig);
+            panel1.Controls.Add(btnLoadConfig);
+            panel1.Location = new Point(1268, 10);
+            panel1.Margin = new Padding(4, 5, 4, 5);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(430, 160);
+            panel1.TabIndex = 2;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(4, 5);
+            txtSearch.Margin = new Padding(4, 5, 4, 5);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(420, 31);
+            txtSearch.TabIndex = 5;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // btnLoadBackup
+            // 
+            btnLoadBackup.Location = new Point(0, 102);
+            btnLoadBackup.Margin = new Padding(4, 5, 4, 5);
+            btnLoadBackup.Name = "btnLoadBackup";
+            btnLoadBackup.Size = new Size(210, 38);
+            btnLoadBackup.TabIndex = 3;
+            btnLoadBackup.Text = "Load Backup";
+            btnLoadBackup.UseVisualStyleBackColor = true;
+            btnLoadBackup.Click += LoadBackup;
+            // 
+            // btnBackupConfig
+            // 
+            btnBackupConfig.Location = new Point(216, 102);
+            btnBackupConfig.Margin = new Padding(4, 5, 4, 5);
+            btnBackupConfig.Name = "btnBackupConfig";
+            btnBackupConfig.Size = new Size(210, 38);
+            btnBackupConfig.TabIndex = 2;
+            btnBackupConfig.Text = "Backup Config";
+            btnBackupConfig.UseVisualStyleBackColor = true;
+            btnBackupConfig.Click += InputBackupConfig;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.ReHoGaBanner3_0_Transparent;
+            pictureBox1.Location = new Point(6, 10);
+            pictureBox1.Margin = new Padding(4, 5, 4, 5);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(359, 160);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.rcc_mP4O8xLXoZTXz80j__1_;
+            pictureBox2.Location = new Point(373, 10);
+            pictureBox2.Margin = new Padding(4, 5, 4, 5);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(146, 160);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 4;
+            pictureBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label1.AutoSize = true;
+            label1.Location = new Point(14, 1018);
+            label1.Name = "label1";
+            label1.Size = new Size(113, 25);
+            label1.TabIndex = 6;
+            label1.Text = "Version 1.2.0";
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new Point(133, 1018);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(260, 25);
+            linkLabel1.TabIndex = 7;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "https://rehoga-interactive.com/";
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1713, 1044);
+            Controls.Add(linkLabel1);
+            Controls.Add(label1);
+            Controls.Add(pictureBox2);
+            Controls.Add(pictureBox1);
+            Controls.Add(panel1);
+            Controls.Add(flowPanelServers);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 5, 4, 5);
+            MinimumSize = new Size(1080, 800);
+            Name = "Form1";
+            Text = "RCC - Remote Connection Center";
+            Load += Form1_Load;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private FlowLayoutPanel flowPanelServers;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Button btnLoadConfig;
+        private Button btnEditConfig;
+        private Panel panel1;
+        private PictureBox pictureBox1;
+        private Button btnBackupConfig;
+        private Button btnLoadBackup;
+        private PictureBox pictureBox2;
+        private TextBox txtSearch;
+        private Label label1;
+        private LinkLabel linkLabel1;
+    }
+}
+
+
+----- FILE: Server Manager\Form1.resx -----
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        AAAA/Of/ARedplEnkMETAAAAAElFTkSuQmCC
+</value>
+  </data>
+</root>
+
+----- FILE: Server Manager\Program.cs -----
+namespace Server_Manager
+{
+    internal static class Program
+    {
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            // To customize application configuration such as set high DPI settings or default font,
+            // see https://aka.ms/applicationconfiguration.
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Form1());
+        }
+    }
+}
+
+----- FILE: Server Manager\Properties\Resources.Designer.cs -----
+//------------------------------------------------------------------------------
+// <auto-generated>
+//     Dieser Code wurde von einem Tool generiert.
+//     Laufzeitversion:4.0.30319.42000
+//
+//     Änderungen an dieser Datei können falsches Verhalten verursachen und gehen verloren, wenn
+//     der Code erneut generiert wird.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+namespace Server_Manager.Properties {
+    using System;
+    
+    
+    /// <summary>
+    ///   Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+    /// </summary>
+    // Diese Klasse wurde von der StronglyTypedResourceBuilder automatisch generiert
+    // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
+    // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
+    // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Server_Manager.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+        ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Logo {
+            get {
+                object obj = ResourceManager.GetObject("Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RCC {
+            get {
+                object obj = ResourceManager.GetObject("RCC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rcc_mP4O8xLXoZTXz80j__1_ {
+            get {
+                object obj = ResourceManager.GetObject("rcc-mP4O8xLXoZTXz80j (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rcc_mP4O8xLXoZTXz80j__1_1 {
+            get {
+                object obj = ResourceManager.GetObject("rcc-mP4O8xLXoZTXz80j (1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ReHoGaBanner3_0_Transparent {
+            get {
+                object obj = ResourceManager.GetObject("ReHoGaBanner3.0_Transparent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ReHoGaBanner31 {
+            get {
+                object obj = ResourceManager.GetObject("ReHoGaBanner31", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+    }
+}
+
+
+----- FILE: Server Manager\Properties\Resources.resx -----
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="rcc-mP4O8xLXoZTXz80j (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rcc-mP4O8xLXoZTXz80j (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReHoGaBanner31" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReHoGaBanner3.0_Transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReHoGaBanner3.0_Transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReHoGaBanner3.0_Transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rcc-mP4O8xLXoZTXz80j (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rcc-mP4O8xLXoZTXz80j (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RCC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RCC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RCC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RCC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rcc-mP4O8xLXoZTXz80j (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rcc-mP4O8xLXoZTXz80j (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReHoGaBanner3.0_Transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReHoGaBanner3.0_Transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>
+
+----- FILE: Server Manager\Remote Connection Center.csproj -----
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Server_Manager</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Resources\Logo.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+	  <AssemblyTitle>Remote Connection Center</AssemblyTitle>
+	  <Company>ReHoGa Interactive</Company>
+	  <Authors>Rees</Authors>
+	  <Product>RCC</Product>
+	  <Version>1.0</Version>
+	  <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="servers.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Logo.ico" />
+    <Content Include="servers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
+
+----- FILE: Server Manager\ServerCard.cs -----
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Server_Manager
+{
+    public partial class ServerCard : UserControl
+    {
+        private ServerConfig config;
+        private System.Windows.Forms.Timer statusTimer;
+
+        public event Action<ServerConfig, ServerCard>? OnStatusCheckRequested;
+        public event Action<ServerConfig>? OnConnect;
+
+        public ServerCard(ServerConfig config)
+        {
+            InitializeComponent();
+            this.config = config;
+
+            lblName.Text = config.Name;
+            lblInfo.Text = config.Mode.ToUpper() switch
+            {
+                "SSH" => $"{config.Host}@{config.Port}",
+                "RDP" => $"{config.Host}:{config.Port}",
+                "WEB" => !string.IsNullOrWhiteSpace(config.Url) ? $"{config.Url}:{config.Port}" : $"{config.Host}:{config.Port}",
+                _ => config.Host
+            };
+
+            btnConnect.Click += (s, e) => OnConnect?.Invoke(config);
+
+            statusTimer = new System.Windows.Forms.Timer();
+            statusTimer.Interval = 1000;
+            statusTimer.Tick += (s, e) => OnStatusCheckRequested?.Invoke(config, this);
+            statusTimer.Start();
+        }
+
+        public void UpdateStatus(bool isOnline)
+        {
+            lblStatus.Text = isOnline ? "Online" : "Offline";
+            lblStatus.ForeColor = isOnline ? Color.Green : Color.Red;
+        }
+
+        private void ServerCard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ServerCard_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+
+----- FILE: Server Manager\ServerCard.Designer.cs -----
+namespace Server_Manager
+{
+    partial class ServerCard
+    {
+        private Label lblName;
+        private Label lblInfo;
+        private Button btnConnect;
+
+        private void InitializeComponent()
+        {
+            lblName = new Label();
+            lblInfo = new Label();
+            btnConnect = new Button();
+            lblStatus = new Label();
+            SuspendLayout();
+            // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblName.Location = new Point(10, 10);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(0, 32);
+            lblName.TabIndex = 0;
+            // 
+            // lblInfo
+            // 
+            lblInfo.AutoSize = true;
+            lblInfo.Location = new Point(10, 40);
+            lblInfo.Name = "lblInfo";
+            lblInfo.Size = new Size(0, 25);
+            lblInfo.TabIndex = 1;
+            // 
+            // btnConnect
+            // 
+            btnConnect.Location = new Point(10, 73);
+            btnConnect.Name = "btnConnect";
+            btnConnect.Size = new Size(100, 35);
+            btnConnect.TabIndex = 2;
+            btnConnect.Text = "Connect";
+            btnConnect.Click += btnConnect_Click;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.ForeColor = Color.Red;
+            lblStatus.Location = new Point(238, 10);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(65, 25);
+            lblStatus.TabIndex = 3;
+            lblStatus.Text = "Offline";
+            // 
+            // ServerCard
+            // 
+            BorderStyle = BorderStyle.FixedSingle;
+            Controls.Add(lblStatus);
+            Controls.Add(lblName);
+            Controls.Add(lblInfo);
+            Controls.Add(btnConnect);
+            Name = "ServerCard";
+            Size = new Size(325, 120);
+            Load += ServerCard_Load_1;
+            ResumeLayout(false);
+            PerformLayout();
+        }
+        private Label lblStatus;
+    }
+}
+
+
+----- FILE: Server Manager\ServerCard.resx -----
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>
+
+----- FILE: Server Manager\ServerConfig.cs -----
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Server_Manager
+{
+    public class ServerConfig
+    {
+        public string Name { get; set; } = "none";
+        public string Host { get; set; } = "0.0.0.0";
+        public int Port { get; set; } = 22;
+        public string User { get; set; } = "";
+        public string Mode { get; set; } = "SSH";
+        public string? Url { get; set; } = "";
+        public bool ?IsOnline { get; set; } = null;
+    }
+}
+
+
+----- FILE: Server Manager\servers.json -----
+[
+    {
+        "Name": "Server 1",
+        "Host": "192.168.1.1",
+        "Port": 22,
+        "User": "user1",
+        "Mode": "SSH"
+    },
+    {
+        "Name": "Server 2",
+        "Host": "192.168.1.2",
+        "Port": 22,
+        "User": "user2",
+        "Mode": "SSH"
+    },
+    {
+        "Name": "Server 2",
+        "Host": "192.168.1.3",
+        "Port": 22,
+        "User": "user2",
+        "Mode": "RDP"
+    },
+    {
+        "Name": "Server 3",
+        "Host": "192.168.1.4",
+        "Port": 80,
+        "Mode": "WEB"
+    },
+    {
+        "Name": "Server 3",
+        "Url": "example.com",
+        "Port": 80,
+        "Mode": "WEB"
+    }
+]

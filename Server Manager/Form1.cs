@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Text.Json;
 using System.Windows.Forms;
+using Server_Manager.Theme;
 
 namespace Server_Manager
 {
@@ -15,6 +16,9 @@ namespace Server_Manager
         public Form1()
         {
             InitializeComponent();
+            ThemeManager.InitializeFromDisk();
+            chkDark.Checked = ThemeManager.CurrentMode == ThemeMode.Dark;
+            ThemeManager.ApplyTo(this);
             PostInit();
             InitDummyServers();
             PopulateServerCards();
@@ -147,19 +151,10 @@ namespace Server_Manager
 
         private void btnEditConfig_Click(object sender, EventArgs e)
         {
-            string configFilePath = "servers.json";
-
-            if (File.Exists(configFilePath))
+            var dlg = new ConfigEditorForm();
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = configFilePath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                MessageBox.Show("servers.json not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnLoadConfig_Click(null, null);
             }
         }
 
@@ -306,6 +301,13 @@ namespace Server_Manager
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void chkDark_CheckedChanged(object sender, EventArgs e)
+        {
+            var isDark = chkDark.Checked;
+            ThemeManager.SetMode(isDark ? ThemeMode.Dark : ThemeMode.Light, persist: true);
+            ThemeManager.ApplyTo(this);
         }
     }
 }
