@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
+using Server_Manager.Config;
 using Server_Manager.Theme;
 
 namespace Server_Manager
@@ -14,7 +14,6 @@ namespace Server_Manager
         public ConfigEditorForm()
         {
             InitializeComponent();
-            ThemeManager.ApplyTo(this);
 
             dataGridView1.ReadOnly = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -22,7 +21,6 @@ namespace Server_Manager
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = System.Drawing.Color.White;
             dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Columns.Add("Name", "Name");
@@ -38,6 +36,8 @@ namespace Server_Manager
             btnSave.Click += (s, e) => SaveAndClose();
             btnCancel.Click += (s, e) => Close();
 
+            ThemeManager.ApplyTo(this);
+
             LoadFromFile();
         }
 
@@ -45,9 +45,11 @@ namespace Server_Manager
 
         private void LoadFromFile()
         {
-            if (!File.Exists("servers.json")) return;
-            var json = File.ReadAllText("servers.json");
-            servers = JsonSerializer.Deserialize<List<ServerConfig>>(json) ?? new();
+            if (!ServerConfigStore.TryLoad(out servers, out var error))
+            {
+                MessageBox.Show($"Loading error: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             RefreshGrid();
         }
 
@@ -102,8 +104,12 @@ namespace Server_Manager
 
         private void SaveAndClose()
         {
-            var json = JsonSerializer.Serialize(servers, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText("servers.json", json);
+            if (!ServerConfigStore.TrySave(servers, out var error))
+            {
+                MessageBox.Show($"Error when saving the config: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             DialogResult = DialogResult.OK;
             Close();
         }

@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
+using Server_Manager.Theme;
 
 namespace Server_Manager
 {
-    public partial class ServerCard : UserControl
+    public partial class ServerCard : UserControl, IThemedControl
     {
-        private ServerConfig config;
-        private System.Windows.Forms.Timer statusTimer;
+        private readonly ServerConfig config;
+        private bool themeHooked;
 
-        public event Action<ServerConfig, ServerCard>? OnStatusCheckRequested;
         public event Action<ServerConfig>? OnConnect;
+
+        public ServerConfig Config => config;
 
         public ServerCard(ServerConfig config)
         {
@@ -32,33 +27,66 @@ namespace Server_Manager
                 _ => config.Host
             };
 
-            btnConnect.Click += (s, e) => OnConnect?.Invoke(config);
+            ThemeManager.ThemeChanged += OnThemeChanged;
+            themeHooked = true;
 
-            statusTimer = new System.Windows.Forms.Timer();
-            statusTimer.Interval = 1000;
-            statusTimer.Tick += (s, e) => OnStatusCheckRequested?.Invoke(config, this);
-            statusTimer.Start();
+            ApplyTheme();
         }
 
-        public void UpdateStatus(bool isOnline)
+        /// <summary>
+        ///  Renders <paramref name="isOnline"/>; null means the probe has not resolved yet.
+        /// </summary>
+        public void UpdateStatus(bool? isOnline)
         {
-            lblStatus.Text = isOnline ? "Online" : "Offline";
-            lblStatus.ForeColor = isOnline ? Color.Green : Color.Red;
+            config.IsOnline = isOnline;
+            RenderStatus();
         }
 
-        private void ServerCard_Load(object sender, EventArgs e)
+        private void RenderStatus()
         {
+            var p = ThemeManager.Palette;
 
+            (lblStatus.Text, lblStatus.ForeColor) = config.IsOnline switch
+            {
+                true => ("Online", p.OnlineFore),
+                false => ("Offline", p.OfflineFore),
+                null => ("Checking...", p.UnknownFore)
+            };
         }
+
+        public void ApplyTheme()
+        {
+            var p = ThemeManager.Palette;
+
+            BackColor = p.Surface;
+            ForeColor = p.Fore;
+            ThemeManager.ApplyToChildren(this);
+
+            RenderStatus();
+        }
+
+        private void OnThemeChanged(object? sender, EventArgs e)
+        {
+            if (IsDisposed) return;
+            ApplyTheme();
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e) => OnConnect?.Invoke(config);
 
         private void ServerCard_Load_1(object sender, EventArgs e)
         {
 
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        protected override void Dispose(bool disposing)
         {
+            if (disposing && themeHooked)
+            {
+                ThemeManager.ThemeChanged -= OnThemeChanged;
+                themeHooked = false;
+            }
 
+            base.Dispose(disposing);
         }
     }
 }

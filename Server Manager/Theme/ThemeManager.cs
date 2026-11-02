@@ -39,7 +39,7 @@ namespace Server_Manager.Theme
             form.BackColor = p.Back;
             form.ForeColor = p.Fore;
 
-            ApplyToControlTree(form);
+            ApplyToChildren(form);
 
             foreach (var ms in FindControls<MenuStrip>(form))
                 ApplyMenuStrip(ms);
@@ -48,16 +48,24 @@ namespace Server_Manager.Theme
                 ApplyToolStrip(ts);
         }
 
-        private static void ApplyToControlTree(Control root)
+        public static void ApplyToChildren(Control? root)
         {
+            if (root is null) return;
+
             var p = Palette;
 
             foreach (Control c in root.Controls)
             {
+                if (c is IThemedControl themed)
+                {
+                    themed.ApplyTheme();
+                    continue;
+                }
+
                 ApplyControl(c, p);
 
                 if (c.HasChildren)
-                    ApplyToControlTree(c);
+                    ApplyToChildren(c);
             }
         }
 

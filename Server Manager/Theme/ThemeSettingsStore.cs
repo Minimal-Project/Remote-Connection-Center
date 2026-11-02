@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text.Json;
-using Server_Manager.Theme;
+using Server_Manager.Config;
 
 namespace Server_Manager.Theme;
 
@@ -12,10 +12,7 @@ public static class ThemeSettingsStore
         public ThemeMode Mode { get; set; } = ThemeMode.Light;
     }
 
-    private static string BaseDir => Path.Combine(
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RCC - Remote Connection Center"));
-
-    private static string FilePath => Path.Combine(BaseDir, "theme.json");
+    private static string FilePath => Path.Combine(AppPaths.BaseDir, "theme.json");
 
     public static ThemeMode Load()
     {
@@ -34,9 +31,15 @@ public static class ThemeSettingsStore
 
     public static void Save(ThemeMode mode)
     {
-        Directory.CreateDirectory(BaseDir);
-        var dto = new Dto { Mode = mode };
-        File.WriteAllText(FilePath, JsonSerializer.Serialize(dto, new JsonSerializerOptions { WriteIndented = true }));
-    }
+        try
+        {
+            AppPaths.EnsureBaseDir();
+            var dto = new Dto { Mode = mode };
+            File.WriteAllText(FilePath, JsonSerializer.Serialize(dto, new JsonSerializerOptions { WriteIndented = true }));
+        }
+        catch
+        {
 
+        }
+    }
 }

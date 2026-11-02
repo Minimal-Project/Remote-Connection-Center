@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Drawing;
-using System.Text;
 
 namespace Server_Manager.Theme;
 
@@ -13,7 +11,10 @@ public sealed record ThemePalette(
     Color Border,
     Color Accent,
     Color InputBack,
-    Color InputFore
+    Color InputFore,
+    Color OnlineFore,
+    Color OfflineFore,
+    Color UnknownFore
     )
 
 {
@@ -25,7 +26,10 @@ public sealed record ThemePalette(
         Border: Color.FromArgb(210, 210, 210),
         Accent: Color.FromArgb(0, 120, 215),
         InputBack: Color.White,
-        InputFore: SystemColors.ControlText
+        InputFore: SystemColors.ControlText,
+        OnlineFore: Color.FromArgb(0, 128, 0),
+        OfflineFore: Color.FromArgb(200, 0, 0),
+        UnknownFore: Color.FromArgb(120, 120, 120)
     );
 
     public static ThemePalette Dark { get; } = new(
@@ -36,6 +40,9 @@ public sealed record ThemePalette(
         Border: Color.FromArgb(80, 80, 80),
         Accent: Color.FromArgb(0, 120, 215),
         InputBack: Color.FromArgb(45, 45, 45),
-        InputFore: Color.FromArgb(220, 220, 220)
+        InputFore: Color.FromArgb(220, 220, 220),
+        OnlineFore: Color.FromArgb(87, 200, 120),
+        OfflineFore: Color.FromArgb(240, 110, 110),
+        UnknownFore: Color.FromArgb(150, 150, 150)
     );
 }
