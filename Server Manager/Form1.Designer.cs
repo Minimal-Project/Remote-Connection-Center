@@ -162,7 +162,8 @@
             label1.Name = "label1";
             label1.Size = new Size(113, 25);
             label1.TabIndex = 6;
-            label1.Text = "Version 1.3.0";
+            label1.Text = "Version 1.4.0";
+            label1.Click += label1_Click;
             // 
             // linkLabel1
             // 
